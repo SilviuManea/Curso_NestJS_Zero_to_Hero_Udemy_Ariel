@@ -33,4 +33,20 @@ export class TasksService {
     this.tasks.push(task);
     return task;
   }
+
+  //Delete a task by its ID
+  deleteTaskById(id: string) {
+    let indice = 0;
+    const id_to_delete = this.tasks.find((element, index) => {
+      indice = index;
+      return element.id === id;
+    });
+
+    console.log(id_to_delete);
+    console.log(indice);
+
+    this.tasks.splice(indice, 1);
+
+    return 'Id of deleted element was' + id_to_delete.id;
+  }
 }
