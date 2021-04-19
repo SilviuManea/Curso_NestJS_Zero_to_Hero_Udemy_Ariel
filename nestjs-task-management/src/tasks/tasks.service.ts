@@ -54,4 +54,10 @@ export class TasksService {
   deleteTask(id: string): void {
     this.tasks = this.tasks.filter((task) => task.id !== id); //if the function returns false, that task is filtered out of the array(we return it only for the tasks with the id we want to delete)
   }
+  //Update Tasks Status
+  updateTaskStatus(id: string, status: TaskStatus) {
+    const task = this.getTaskById(id);
+    task.status = status;
+    return task;
+  }
 }
