@@ -59,7 +59,8 @@ export class TasksService {
 
   //Delete a task by its ID - Tutorial's solution
   deleteTask(id: string): void {
-    this.tasks = this.tasks.filter((task) => task.id !== id); //if the function returns false, that task is filtered out of the array(we return it only for the tasks with the id we want to delete)
+    const found = this.getTaskById(id);
+    this.tasks = this.tasks.filter((task) => task.id !== found.id); //if the function returns false, that task is filtered out of the array(we return it only for the tasks with the id we want to delete)
   }
   //Update Tasks Status
   updateTaskStatus(id: string, status: TaskStatus) {
