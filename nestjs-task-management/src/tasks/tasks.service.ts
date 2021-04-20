@@ -1,4 +1,4 @@
-import { Injectable, ParseUUIDPipe } from '@nestjs/common';
+import { Injectable, NotFoundException, ParseUUIDPipe } from '@nestjs/common';
 import { Task, TaskStatus } from './task.model';
 import { v1 as uuid } from 'uuid';
 import { CreateTaskDto } from './dto/create-task.dto';
@@ -16,7 +16,13 @@ export class TasksService {
 
   //Returns only the task with a specific id, if the id matches
   getTaskById(id: string): Task {
-    return this.tasks.find((task) => task.id === id);
+    const found = this.tasks.find((task) => task.id === id);
+
+    if (!found) {
+      throw new NotFoundException(`Task with ID "${id}" not found`);
+    }
+
+    return found;
   }
 
   //Create a new task and assigns a unique id
