@@ -19,4 +19,9 @@ export class TaskRepository extends Repository<Task> {
 
     return task;
   }
+
+  //My solution to challenge 4-47
+  async deleteTask(task: Task): Promise<void> {
+    await task.remove();
+  }
 }

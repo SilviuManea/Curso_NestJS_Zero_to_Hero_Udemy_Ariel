@@ -32,23 +32,14 @@ export class TasksService {
     return this.taskRepository.createTask(createTaskDto);
   }
 
-  // // Delete a task by its ID - My solution
-  // // deleteTaskById(id: string) {
-  // //   let indice = 0;
-  // //   const id_to_delete = this.tasks.find((element, index) => {
-  // //     indice = index;
-  // //     return element.id === id;
-  // //   });
-  // //   console.log(id_to_delete);
-  // //   console.log(indice);
-  // //   this.tasks.splice(indice, 1);
-  // //   return 'Id of deleted element was' + id_to_delete.id;
-  // // }
-  // //Delete a task by its ID - Tutorial's solution
-  // deleteTask(id: string): void {
-  //   const found = this.getTaskById(id);
-  //   this.tasks = this.tasks.filter((task) => task.id !== found.id); //if the function returns false, that task is filtered out of the array(we return it only for the tasks with the id we want to delete)
-  // }
+  //My solution to challenge 4-47
+  async deleteTask(id: number): Promise<void> {
+    const found = await this.getTaskById(id);
+    return this.taskRepository.deleteTask(found);
+
+    //this.tasks = this.tasks.filter((task) => task.id !== found.id); //if the function returns false, that task is filtered out of the array(we return it only for the tasks with the id we want to delete)
+  }
+
   // //Update Tasks Status
   // updateTaskStatus(id: string, status: TaskStatus) {
   //   const task = this.getTaskById(id);

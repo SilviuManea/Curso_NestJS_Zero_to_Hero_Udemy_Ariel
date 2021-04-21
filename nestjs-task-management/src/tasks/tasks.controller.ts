@@ -45,14 +45,11 @@ export class TasksController {
     return this.tasksService.createTask(createTaskDto);
   }
 
-  // @Delete('/:id')
-  // deleteTask(@Param('id') id: string): void {
-  //   this.tasksService.deleteTask(id);
-  // }
-  // // @Delete('/:id')//my Solution
-  // // deleteTaskById(@Param('id') id: string): void {
-  // //   this.tasksService.deleteTaskById(id);
-  // // }
+  //My Solution to challenge 4-47
+  @Delete('/:id')
+  deleteTask(@Param('id') id: number): Promise<void> {
+    return this.tasksService.deleteTask(id);
+  }
 
   // //Patch - Tutorial Solution
   // @Patch('/:id/status')
