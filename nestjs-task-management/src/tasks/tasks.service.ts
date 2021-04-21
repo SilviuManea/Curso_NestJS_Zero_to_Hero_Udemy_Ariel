@@ -1,23 +1,32 @@
 import { Injectable, NotFoundException, ParseUUIDPipe } from '@nestjs/common';
+import { InjectRepository } from '@nestjs/typeorm';
 
 import { v1 as uuid } from 'uuid';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { GetTasksFilterDto } from './dto/get-tasks-filter.dto';
+import { Task } from './task.entity';
+import { TaskRepository } from './task.repository';
 
 @Injectable()
 export class TasksService {
+  constructor(
+    @InjectRepository(TaskRepository) //we inject the repository so that we can use it in the service
+    private taskRepository: TaskRepository,
+  ) {}
+
   // //Returns all tasks
   // getAllTasks(): Task[] {
   //   return this.tasks;
   // }
-  // //Returns only the task with a specific id, if the id matches
-  // getTaskById(id: string): Task {
-  //   const found = this.tasks.find((task) => task.id === id);
-  //   if (!found) {
-  //     throw new NotFoundException(`Task with ID "${id}" not found`);
-  //   }
-  //   return found;
-  // }
+
+  async getTaskById(id: number): Promise<Task> {
+    const found = await this.taskRepository.findOne(id);
+    if (!found) {
+      throw new NotFoundException(`Task with ID "${id}" not found`);
+    }
+    return found;
+  }
+
   // //Create a new task and assigns a unique id
   // createTask(createTaskDto: CreateTaskDto): Task {
   //   //Extract only the keys we need from the dto
