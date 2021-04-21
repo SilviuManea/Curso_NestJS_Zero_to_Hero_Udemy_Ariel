@@ -32,12 +32,22 @@ export class TasksService {
     return this.taskRepository.createTask(createTaskDto);
   }
 
-  //My solution to challenge 4-47
-  async deleteTask(id: number): Promise<void> {
-    const found = await this.getTaskById(id);
-    return this.taskRepository.deleteTask(found);
+  // //My solution to challenge 4-47
+  // async deleteTask(id: number): Promise<void> {
+  //   const found = await this.getTaskById(id);
+  //   return this.taskRepository.deleteTask(found);
+  // }
 
-    //this.tasks = this.tasks.filter((task) => task.id !== found.id); //if the function returns false, that task is filtered out of the array(we return it only for the tasks with the id we want to delete)
+  //Tutorial solution to challenge 4-47
+  async deleteTask(id: number): Promise<void> {
+    const result = await this.taskRepository.delete(id);
+    //console.log(result);
+    if (result.affected === 0) {
+      //if there were no rows affected
+      throw new NotFoundException(`Task with ID "${id}" not found`);
+    } else {
+      //nothing - element has been deleted
+    }
   }
 
   // //Update Tasks Status
