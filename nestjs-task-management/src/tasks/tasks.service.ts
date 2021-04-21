@@ -4,6 +4,7 @@ import { InjectRepository } from '@nestjs/typeorm';
 import { v1 as uuid } from 'uuid';
 import { CreateTaskDto } from './dto/create-task.dto';
 import { GetTasksFilterDto } from './dto/get-tasks-filter.dto';
+import { TaskStatus } from './task-status.enum';
 import { Task } from './task.entity';
 import { TaskRepository } from './task.repository';
 
@@ -27,19 +28,10 @@ export class TasksService {
     return found;
   }
 
-  // //Create a new task and assigns a unique id
-  // createTask(createTaskDto: CreateTaskDto): Task {
-  //   //Extract only the keys we need from the dto
-  //   const { title, description } = createTaskDto;
-  //   const task: Task = {
-  //     id: uuid(),
-  //     title,
-  //     description,
-  //     status: TaskStatus.OPEN,
-  //   };
-  //   this.tasks.push(task);
-  //   return task;
-  // }
+  async createTask(createTaskDto: CreateTaskDto): Promise<Task> {
+    return this.taskRepository.createTask(createTaskDto);
+  }
+
   // // Delete a task by its ID - My solution
   // // deleteTaskById(id: string) {
   // //   let indice = 0;
