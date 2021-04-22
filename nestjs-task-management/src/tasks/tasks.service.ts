@@ -50,12 +50,14 @@ export class TasksService {
     }
   }
 
-  // //Update Tasks Status
-  // updateTaskStatus(id: string, status: TaskStatus) {
-  //   const task = this.getTaskById(id);
-  //   task.status = status;
-  //   return task;
-  // }
+  async updateTaskStatus(id: number, status: TaskStatus): Promise<Task> {
+    //Retrieve the task
+    const task = await this.getTaskById(id);
+    task.status = status;
+    await task.save();
+    return task;
+  }
+
   // getTasksWithFilters(filterDto: GetTasksFilterDto): Task[] {
   //   //atack endpoint passing some filters http://localhost:3000/tasks?status=OPEN&search=NestJS
   //   const { status, search } = filterDto; //dto destruct -> equals const status = filterDto.status; , same with search.
