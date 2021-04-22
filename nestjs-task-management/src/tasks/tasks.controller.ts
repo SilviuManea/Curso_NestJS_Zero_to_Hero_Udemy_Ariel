@@ -23,17 +23,10 @@ import { TasksService } from './tasks.service';
 export class TasksController {
   constructor(private tasksService: TasksService) {}
 
-  // @Get()
-  // getTasks(@Query(ValidationPipe) filterDto: GetTasksFilterDto): Task[] {
-  //   if (Object.keys(filterDto).length) {
-  //     //if we have any argument do this
-  //     return this.tasksService.getTasksWithFilters(filterDto);
-  //   } else {
-  //     //if no filtering arguments provided to this
-  //     //console.log(filterDto); //->try it atacking http://localhost:3000/tasks?status=OPEN&search=hello
-  //     return this.tasksService.getAllTasks();
-  //   }
-  // }
+  @Get()
+  getTasks(@Query(ValidationPipe) filterDto: GetTasksFilterDto) {
+    return this.tasksService.getTasks(filterDto);
+  }
 
   @Get('/:id')
   getTaskById(@Param('id', ParseIntPipe) id: number): Promise<Task> {
@@ -45,12 +38,6 @@ export class TasksController {
   createTask(@Body() createTaskDto: CreateTaskDto): Promise<Task> {
     return this.tasksService.createTask(createTaskDto);
   }
-
-  // //My Solution to challenge 4-47
-  // @Delete('/:id')
-  // deleteTask(@Param('id') id: number): Promise<void> {
-  //   return this.tasksService.deleteTask(id);
-  // }
 
   // Tutorial Solution to challenge 4-47
   @Delete('/:id')
