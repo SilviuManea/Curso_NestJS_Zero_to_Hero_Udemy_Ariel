@@ -1,3 +1,7 @@
+import {
+  ConflictException,
+  InternalServerErrorException,
+} from '@nestjs/common';
 import { EntityRepository, Repository } from 'typeorm';
 import { AuthCredentialsDto } from './dto/auth-credentials.dto';
 import { User } from './user.entity';
@@ -12,9 +16,28 @@ export class UserRepository extends Repository<User> {
     //the dto comes from the controller (previous validation) to the service and finally to this repository
     const { username, password } = authCredentialsDto;
 
+    const exists = this.findOne({ username });
+
+    // //First method(using two queries,one for checking if the user exists and another for saving it)
+    // if(exists){
+    //   // ... throw some error
+    // }
+    // //if the user does not exist already in the db, continue creating the user.
+
     const user = new User();
     user.username = username;
     user.password = password;
-    await user.save();
+
+    try {
+      await user.save();
+    } catch (error) {
+      //console.log(error.code);//23505 -> error code for duplicate entries
+      if (error.code === '23505') {
+        //duplicate username
+        throw new ConflictException('Username already exists');
+      } else {
+        throw new InternalServerErrorException();
+      }
+    }
   }
 }
