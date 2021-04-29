@@ -5,6 +5,7 @@ import {
 import { EntityRepository, Repository } from 'typeorm';
 import { AuthCredentialsDto } from './dto/auth-credentials.dto';
 import { User } from './user.entity';
+import * as bcrypt from 'bcrypt';
 
 //here is where we will write the heavy user related logic, so that we will not need to do it in the service.
 @EntityRepository(User) //WE NEED TO PASS THE ENTITY THAT is going to be working with the repo
@@ -26,12 +27,15 @@ export class UserRepository extends Repository<User> {
 
     const user = new User();
     user.username = username;
-    user.password = password;
+    user.salt = await bcrypt.genSalt(); //creating a salt like $2b$10$YH0BduVhOJqaMmpMv6gcYe
+    user.password = await this.hashPassword(password, user.salt);
+
+    //console.log(user.password);
 
     try {
       await user.save();
     } catch (error) {
-      //console.log(error.code);//23505 -> error code for duplicate entries
+      //console.log(error.code); //23505 -> error code for duplicate entries
       if (error.code === '23505') {
         //duplicate username
         throw new ConflictException('Username already exists');
@@ -39,5 +43,9 @@ export class UserRepository extends Repository<User> {
         throw new InternalServerErrorException();
       }
     }
+  }
+
+  private async hashPassword(password: string, salt: string): Promise<string> {
+    return bcrypt.hash(password, salt);
   }
 }
