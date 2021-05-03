@@ -1,0 +1,6 @@
+Various Notes regarding specific lectures.
+
+Lesson 5-62
+
+Atack - http://localhost:3000/auth/test providing in the header the key as Authorization and key with the token as "Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJ1c2VybmFtZSI6IkFyaWVsIiwiaWF0IjoxNjIwMDQzNTgzLCJleHAiOjE2MjAwNDcxODN9.4GfZIxsBAcySEx3XNYDsuKfxOk2UYJjVkCDjpJ8YKNU"
+If everythong works ok, thw back returns a lot of info, including the authorised user for the operation.
