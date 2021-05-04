@@ -10,7 +10,7 @@ async function bootstrap() {
   const serverConfig = config.get('server');
   //console.log(serverConfig);
 
-  const port = 3000;
+  const port = process.env.PORT || serverConfig.port; //starts on the provided port |or| takes it from the config yaml file
   await app.listen(port);
   logger.log(`Application listening on port ${port}`);
 }
