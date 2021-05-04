@@ -62,3 +62,15 @@ In production.yml we do not specify any credentiales or secret since we will pro
 By default if NODE ENV is not defined, the config will assume the ENVIRONMENT is Development
 
 *************************************************************************
+
+Lesson 8-79
+
+Source Code: Configuration
+
+Here is a GitHub repository containing the source code up until this point in the course. Feel free to fork this repository and modify it.
+
+Branch name: configuration/02-applying-configuration
+
+https://github.com/arielweinberger/nestjs-course-task-management/tree/configuration/02-applying-configuration
+
+*************************************************************************
