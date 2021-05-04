@@ -30,3 +30,25 @@ and make sure to import ExecutionContext at the top of the file:
 import { createParamDecorator, ExecutionContext } from '@nestjs/common';
 
 *************************************************************************
+
+Lesson 8-75
+
+Windows users only: Environment Variables
+
+In the upcoming lectures I will set up environment variables via NPM scripts. This is not supported in Windows by default.
+
+To overcome this, please install the win-node-env NPM package globally.
+
+
+
+If you are using NPM:
+
+npm install -g win-node-env
+
+If you are using Yarn:
+
+yarn global add win-node-env
+
+After installing, you are good to proceed with the course. Good luck!
+
+*************************************************************************
