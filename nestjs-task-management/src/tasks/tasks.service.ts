@@ -1,5 +1,6 @@
 import { Injectable, NotFoundException, ParseUUIDPipe } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
+import { User } from 'src/auth/user.entity';
 
 import { v1 as uuid } from 'uuid';
 import { CreateTaskDto } from './dto/create-task.dto';
@@ -27,8 +28,8 @@ export class TasksService {
     return found;
   }
 
-  async createTask(createTaskDto: CreateTaskDto): Promise<Task> {
-    return this.taskRepository.createTask(createTaskDto);
+  async createTask(createTaskDto: CreateTaskDto, user: User): Promise<Task> {
+    return this.taskRepository.createTask(createTaskDto, user);
   }
 
   //Tutorial solution to challenge 4-47
