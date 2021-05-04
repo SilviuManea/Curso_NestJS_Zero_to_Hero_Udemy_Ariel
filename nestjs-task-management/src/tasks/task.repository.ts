@@ -10,10 +10,12 @@ import { Task } from './task.entity';
 // We end up removing from our service which results in shorter methods in our service and easyer code to understand
 @EntityRepository(Task)
 export class TaskRepository extends Repository<Task> {
-  async getTasks(filterDto: GetTasksFilterDto): Promise<Task[]> {
+  async getTasks(filterDto: GetTasksFilterDto, user: User): Promise<Task[]> {
     //separate filters
     const { status, search } = filterDto;
     const query = this.createQueryBuilder('task'); // keyword that we are going to use to refer to the task entity
+
+    query.where('task.userId = :userId', { userId: user.id }); //where the userID is the same as the one that is coming via parameter
 
     //if status provided by user
     if (status) {

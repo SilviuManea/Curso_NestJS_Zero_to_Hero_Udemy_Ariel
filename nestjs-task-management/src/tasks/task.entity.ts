@@ -18,4 +18,7 @@ export class Task extends BaseEntity {
 
   @ManyToOne((type) => User, (user) => user.tasks, { eager: false })
   user: User;
+
+  @Column()
+  userId: number; //we need to define this inside the entity definition or it will be stranger to postgres
 }
