@@ -52,3 +52,13 @@ yarn global add win-node-env
 After installing, you are good to proceed with the course. Good luck!
 
 *************************************************************************
+
+Lesson 8-76-77
+
+npm install config
+
+In production.yml we do not specify any credentiales or secret since we will provide it via environment variables.
+
+By default if NODE ENV is not defined, the config will assume the ENVIRONMENT is Development
+
+*************************************************************************
