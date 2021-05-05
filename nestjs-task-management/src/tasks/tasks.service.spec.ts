@@ -27,12 +27,12 @@ describe('TasksService', () => {
 
   describe('getTasks', () => {
     it('gets all tasks from the repository', async () => {
-      taskRepository.getTasks.mockResolvedValue('someValue');
-      expect(taskRepository.getTasks).not.toHaveBeenCalled();
-      const filters: GetTasksFilterDto = { status: TaskStatus.IN_PROGRESS, search: 'Some search query' };
-      const result = await tasksService.getTasks(filters, mockUser);
-      expect(taskRepository.getTasks).toHaveBeenCalled();
-      expect(result).toEqual('someValue');
+      taskRepository.getTasks.mockResolvedValue('someValue'); // we mock a resolvedvalue
+      expect(taskRepository.getTasks).not.toHaveBeenCalled(); // here the gettasks should NOT be called
+      const filters: GetTasksFilterDto = { status: TaskStatus.IN_PROGRESS, search: 'Some search query' }; // define filters
+      const result = await tasksService.getTasks(filters, mockUser); // call gettasks
+      expect(taskRepository.getTasks).toHaveBeenCalled(); // check that gettasks has been called
+      expect(result).toEqual('someValue'); // check that the result of the function is the one above
     });
   });
 });
