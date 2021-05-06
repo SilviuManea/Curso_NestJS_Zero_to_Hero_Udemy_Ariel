@@ -88,3 +88,11 @@ docker run --name mongo -p 27017:27017 -d mongo
 
 *************************************************************************
 
+Lesson 13-110
+
+download robo3t -> https://robomongo.org/download
+
+use these instructions(with the current version of robo) to install it correctly
+https://gist.github.com/abdallahokasha/37911a64ad289487387e2d1a144604ae
+
+*************************************************************************
