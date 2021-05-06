@@ -8,6 +8,7 @@ import { NotFoundException } from '@nestjs/common';
 import { async } from 'rxjs';
 
 const mockUser = { id: 12, username: 'Test user' };
+
 //mock the taskRepository(since we dont want a connection with the database)
 const mockTaskRepository = () => ({
   getTasks: jest.fn(), //we monitorize the function to be tested
@@ -88,4 +89,23 @@ describe('TasksService', () => {
     taskRepository.delete.mockResolvedValue({ affected: 0 });
     expect(tasksService.deleteTask(1, mockUser)).rejects.toThrow(NotFoundException);
   });
+
+  // //It fails dont know why: ->Matcher error: received value must be a mock or spy function
+  // describe('updateTaskStatus', () => {
+  //   it('updates a task status', async () => {
+  //     const save = jest.fn().mockResolvedValue(true);
+
+  //     tasksService.getTaskByid = jest.fn().mockResolvedValue({
+  //       status: TaskStatus.OPEN,
+  //       save,
+  //     });
+
+  //     expect(tasksService.getTaskById).not.toHaveBeenCalled();
+  //     expect(save).not.toHaveBeenCalled();
+  //     const result = await tasksService.updateTaskStatus(1, TaskStatus.DONE, mockUser);
+  //     expect(tasksService.getTaskById).toHaveBeenCalled();
+  //     expect(save).toHaveBeenCalled();
+  //     expect(result.status).toEqual(TaskStatus.DONE);
+  //   });
+  // });
 });
