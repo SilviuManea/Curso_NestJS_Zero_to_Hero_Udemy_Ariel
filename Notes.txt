@@ -103,4 +103,26 @@ npm install @nestjs/cli -g
 
 *************************************************************************
 
+Lesson 13-113
+
+IMPORTANT! GraphQL installation version
+IMPORTANT! GraphQL Installation Version
+
+In the next lecture, we are going to install GraphQL using  npm install .
+
+Please make sure to install GraphQL at version 14.6.0 explicitly. Currently there is a TypeScript bug related to the type definitions of GraphQL.
+
+So the full command we use at 0:37, originally:
+
+npm install graphql graphql-tools apollo-server-express @nestjs/graphql
+
+Should instead be:
+
+npm install graphql@14.6.0 graphql-tools apollo-server-express @nestjs/graphql
+
+
+
+Hopefully this will be fixed soon. Good luck!
+
+*************************************************************************
 
