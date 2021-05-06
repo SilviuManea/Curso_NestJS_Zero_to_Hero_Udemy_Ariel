@@ -74,3 +74,10 @@ Branch name: configuration/02-applying-configuration
 https://github.com/arielweinberger/nestjs-course-task-management/tree/configuration/02-applying-configuration
 
 *************************************************************************
+
+Lesson 13-107-108
+
+    School management Applications
+        Resolvers - equivalent for controllers for GraphQL
+
+*************************************************************************
