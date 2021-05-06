@@ -5,12 +5,14 @@ import { TaskRepository } from './task.repository';
 import { GetTasksFilterDto } from './dto/get-tasks-filter.dto';
 import { TaskStatus } from './task-status.enum';
 import { NotFoundException } from '@nestjs/common';
+import { async } from 'rxjs';
 
 const mockUser = { id: 12, username: 'Test user' };
 //mock the taskRepository(since we dont want a connection with the database)
 const mockTaskRepository = () => ({
   getTasks: jest.fn(), //we monitorize the function to be tested
   findOne: jest.fn(),
+  createTask: jest.fn(),
 }); //we return the object
 
 describe('TasksService', () => {
@@ -57,6 +59,18 @@ describe('TasksService', () => {
     it('throws an error as a task is not found', () => {
       taskRepository.findOne.mockResolvedValue(null); // we mock a resolvedvalue to null if there is no task found
       expect(tasksService.getTaskById(1, mockUser)).rejects.toThrow(NotFoundException); //we expect it to throw the rejection of the unresolved promise
+    });
+  });
+
+  describe('createTask', () => {
+    it('calls taskRepository.create() and returns the result', async () => {
+      taskRepository.createTask.mockResolvedValue('someTask');
+
+      expect(taskRepository.createTask).not.toHaveBeenCalled();
+      const createTaskDto = { title: 'Test task', description: 'Test desc' };
+      const result = await tasksService.createTask({ title: 'Test task', description: 'Test desc' }, mockUser);
+      expect(taskRepository.createTask).toHaveBeenCalledWith(createTaskDto, mockUser);
+      expect(result).toEqual('someTask');
     });
   });
 });
